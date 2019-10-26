@@ -1,5 +1,6 @@
 const BodyParser = require('body-parser');
 const Express = require('express');
+const Multer = require('multer');
 
 //立ち上げサーバーのポート番号
 const SERVER_PORT_NO = 3000;
@@ -18,3 +19,5 @@ app.use(function(req, res , next) {
 });
 app.use(BodyParser.urlencoded({limit:'1024mb',extended: true, type: 'application/x-www-form-urlencoded'}));
 app.use(BodyParser.json());
+
+app.use(Multer({ dest: './images/' }).single('spotimage'));
