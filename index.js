@@ -4,6 +4,13 @@ const Express = require('express');
 //立ち上げサーバーのポート番号
 const SERVER_PORT_NO = 3000;
 
+//サーバーの立ち上げ
+const app = Express();
+
+const server = app.listen(SERVER_PORT_NO , function() {
+    console.log("Node.js is listening to PORT:" + server.address().port);
+});
+
 app.use(function(req, res , next) {
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
