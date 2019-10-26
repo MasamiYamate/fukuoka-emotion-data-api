@@ -1,9 +1,10 @@
 const mongo = require('../utility/mongodb-manager');
+const DBPARM = require('../parameter/db-parameters');
 const codelist = require('../parameter/error-codelist');
 const errorManager = require('../utility/error-manager');
 
 module.exports = {
-    
+    setData: setData
 }
 
 // 必須キー
@@ -13,7 +14,6 @@ module.exports = {
 // imageData
 // comment
 // category
-
 
 async function setData(req, res) {
     let body = req.body;
@@ -40,9 +40,13 @@ async function setData(req, res) {
             comment: comment,
             category: category
         }
-
-
-
+        await mongo.insertOne(DBPARM.DB_NAME, DBPARM.USERPOINTDATA, setData);
+        
+        let result = {
+            status: codelist.success,
+            data: setData
+        }
+        res.json(result)
     } else {
         return errorManager.commonErrResponse(req, res, codelist.generalerr);
     }
